@@ -1,0 +1,280 @@
+{
+  "address": "8Kns8bTCHGWYh2MUcYb4p7tK6subWE9jkyZiWq2T5Tn7",
+  "metadata": {
+    "name": "contract",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "add_city",
+      "discriminator": [
+        106,
+        38,
+        63,
+        145,
+        13,
+        126,
+        52,
+        154
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "oracle_state",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "city_name",
+          "type": "string"
+        },
+        {
+          "name": "area",
+          "type": "u64"
+        },
+        {
+          "name": "circle_rate",
+          "type": "u64"
+        },
+        {
+          "name": "country",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "get_circle_rate",
+      "discriminator": [
+        140,
+        171,
+        9,
+        68,
+        179,
+        97,
+        30,
+        192
+      ],
+      "accounts": [
+        {
+          "name": "oracle_state"
+        }
+      ],
+      "args": [
+        {
+          "name": "city_name",
+          "type": "string"
+        }
+      ],
+      "returns": "u64"
+    },
+    {
+      "name": "get_city_list",
+      "discriminator": [
+        233,
+        91,
+        42,
+        99,
+        3,
+        243,
+        122,
+        234
+      ],
+      "accounts": [
+        {
+          "name": "oracle_state"
+        }
+      ],
+      "args": [],
+      "returns": {
+        "vec": {
+          "defined": {
+            "name": "CircleInfo"
+          }
+        }
+      }
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "oracle_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  114,
+                  97,
+                  99,
+                  108,
+                  101,
+                  45,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin_signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "admin",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "update_city_rate",
+      "discriminator": [
+        99,
+        245,
+        199,
+        63,
+        142,
+        114,
+        136,
+        163
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true
+        },
+        {
+          "name": "oracle_state",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "city_name",
+          "type": "string"
+        },
+        {
+          "name": "rate",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "OracleState",
+      "discriminator": [
+        97,
+        156,
+        157,
+        189,
+        194,
+        73,
+        8,
+        15
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Unauthorized"
+    },
+    {
+      "code": 6001,
+      "name": "CityNotSupported",
+      "msg": "City not supported"
+    },
+    {
+      "code": 6002,
+      "name": "RateNotValid",
+      "msg": "Rate not valid"
+    },
+    {
+      "code": 6003,
+      "name": "CityAlreadyExists",
+      "msg": "City already exists"
+    }
+  ],
+  "types": [
+    {
+      "name": "CircleInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "city_name",
+            "type": "string"
+          },
+          {
+            "name": "rate",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "u64"
+          },
+          {
+            "name": "country",
+            "type": "string"
+          },
+          {
+            "name": "area",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OracleState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "circle_rates",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "CircleInfo"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
