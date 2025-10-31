@@ -111,7 +111,7 @@ async function upsertOracleCities(cities: any[]) {
   const existingCities = await fetchOracleCities();
 
   for (const city of cities) {
-    const rateValue = Math.floor(city.rate.rate * 100); 
+    const rateValue = Math.floor(city.rate.rate * 100);
 
     try {
       if (existingCities.has(city.name)) {
